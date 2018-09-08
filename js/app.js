@@ -1,7 +1,7 @@
 //Variables Globales
 var num1 = 0;
 var num2 = 0;
-var signo = " ";
+var signo = "";
 
 //Objeto Calculadora
 var Calculadora = {
@@ -42,6 +42,7 @@ var Calculadora = {
 
     dividir: function(){
     	var resultado = parseFloat(num1) / parseFloat(num2);
+    	return resultado;
     }
 
 }
@@ -49,6 +50,7 @@ var Calculadora = {
 //variable hacia la pantalla de la calculadora y funciones------------------------
 var Pantalla = document.getElementById("display");
 
+	
 //Boton 7------------------------------------------------------
 var siete = document.getElementById("7");
 siete.addEventListener('mousedown',function(){
@@ -228,13 +230,28 @@ cero.addEventListener('mouseup',function(){
 var Punto = document.getElementById("punto");
 Punto.addEventListener('mousedown',function(){
 	Punto.setAttribute("style","transform: scale(0.90,0.90)")
-
+			
+		puntoDecimal()
 
 })
 
 Punto.addEventListener('mouseup',function(){
 	Punto.setAttribute("style","transform: scale(1,1)")
 })
+
+
+function puntoDecimal(){
+
+	var punto = Pantalla.textContent;
+	var cadena = punto.indexOf(".");
+
+		if(cadena != 1){
+			Pantalla.textContent = Pantalla.textContent +"."
+		}else{ 
+			//Bloque de punto decimal
+		}
+
+}
 
 //--------------------------------------------------------------------------
 
@@ -305,11 +322,44 @@ On.addEventListener('mouseup',function(){
 var Boton = document.getElementById("sign");
 Boton.addEventListener('mousedown',function(){
 	Boton.setAttribute("style","transform: scale(0.90,0.90)")
+
+	var guion = Pantalla.textContent;
+	var menos = guion.indexOf("-");
+	
+	var linea = "-";
+
+		if(menos != 1){
+			Pantalla.textContent = linea+guion
+
+		}else if(guion.length == "-"){ 
+			 guion = parseFloat(guion);
+
+			 guion = guion * -1;
+			 Pantalla.textContent = guion;
+		}
+		return Pantalla.textContent;
+	
 })
 
 Boton.addEventListener('mouseup',function(){
 	Boton.setAttribute("style","transform: scale(1,1)")
 })
+
+
+function limitarDigitos(){
+
+	var aux = Pantalla.textContent;
+
+	if(aux.length > 8){
+		aux = aux.substr(0,8);
+		Pantalla.textContent = aux;
+
+	}
+
+		
+}
+
+document.getElementById("display").limitarDigitos;
 
 //---------------------------------------------------------
 //Boton Raiz ----------------------------------------------
